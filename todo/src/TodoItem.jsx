@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { IconButton, TextField, Box, Card, CardContent, Typography } from "@mui/material";
+import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -8,6 +7,7 @@ const TodoItem = ({ todo, index, deleteTodo, updateTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title);
   const [newDescription, setNewDescription] = useState(todo.description);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleTitleChange = (e) => {
     setNewTitle(e.target.value);
@@ -22,56 +22,63 @@ const TodoItem = ({ todo, index, deleteTodo, updateTodo }) => {
     setIsEditing(false);
   };
 
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
-    <Box style={{ marginBottom: '1rem' }}>
-      <Card style={{ borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
-        <CardContent>
-          {isEditing ? (
-            <>
-              <TextField
-                value={newTitle}
-                onChange={handleTitleChange}
-                variant="outlined"
-                fullWidth
-                autoFocus
-                style={{ marginBottom: '1rem' }}
-              />
-              <TextField
-                value={newDescription}
-                onChange={handleDescriptionChange}
-                variant="outlined"
-                fullWidth
-                multiline
-                rows={3}
-                style={{ marginBottom: '1rem' }}
-              />
-              <IconButton edge="end" onClick={handleSave} style={{ color: 'green' }}>
-                <SaveIcon />
-              </IconButton>
-            </>
-          ) : (
-            <>
-              <Typography variant="h6" style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
-                {todo.title}
-              </Typography>
-              <Typography variant="body1" style={{ marginBottom: '1rem' }}>
-                {todo.description}
-              </Typography>
-              <IconButton edge="end" onClick={() => deleteTodo(index)} style={{ color: 'red' }}>
-                <DeleteIcon />
-              </IconButton>
-              <IconButton edge="end" onClick={() => setIsEditing(true)} style={{ color: 'blue' }}>
-                <EditIcon />
-              </IconButton>
-            </>
-          )}
-        </CardContent>
-      </Card>
-      <div className="grid grid-cols-12">
-        <div className="col-span-12 lg:cols-span-6"></div>
-        <div className="col-span-12 lg:col-span-6"></div>
-      </div>
-    </Box>
+    <div className="bg-white shadow-md rounded-lg p-4 flex flex-col h-full">
+      {isEditing ? (
+        <>
+          <input
+            type="text"
+            value={newTitle}
+            onChange={handleTitleChange}
+            className="w-full p-2 mb-4 border border-gray-300 rounded-md"
+            autoFocus
+          />
+          <textarea
+            value={newDescription}
+            onChange={handleDescriptionChange}
+            className="w-full p-2 mb-4 border border-gray-300 rounded-md"
+            rows="3"
+          />
+          <button
+            onClick={handleSave}
+            className="text-green-500 hover:text-green-700"
+          >
+            <SaveIcon />
+          </button>
+        </>
+      ) : (
+        <>
+          <h3 className="font-bold text-lg text-[#E98901] mb-2 uppercase">{todo.title}</h3>
+          <hr />
+          <p
+            className={`mb-4 ${isExpanded ? "whitespace-normal" : "truncate"} `}
+            style={{ maxHeight: "6em" }}
+            onClick={toggleDescription}
+          >
+            {todo.description}
+            {!isExpanded && todo.description.length > 50 && "..."}
+          </p>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => deleteTodo(index)}
+              className="text-red-500 hover:text-red-700"
+            >
+              <DeleteIcon />
+            </button>
+            <button
+              onClick={() => setIsEditing(true)}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              <EditIcon />
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
