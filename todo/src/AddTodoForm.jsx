@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Button, Paper, TextField, Box } from "@mui/material";
 
 const AddToDoForm = ({ addTodo }) => {
-  const [input, setInput] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim() !== "") {
-      addTodo(input);
-      setInput("");
+    if (title.trim() !== "" && description.trim() !== "") {
+      addTodo(title, description);
+      setTitle("");
+      setDescription("");
     }
   };
 
@@ -19,14 +21,18 @@ const AddToDoForm = ({ addTodo }) => {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Add a new task"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            style={{
-              marginBottom: '1rem',
-              borderRadius: '8px',
-              padding: '10px'
-            }}
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            style={{ marginBottom: '1rem' }}
+          />
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={{ marginBottom: '1rem' }}
           />
           <Button
             type="submit"

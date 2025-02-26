@@ -1,21 +1,22 @@
 import React from "react";
-import { List, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import TodoItem from "./TodoItem";
 
 const TodoList = ({ todos, deleteTodo, updateTodo }) => {
   return (
-    <Box style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px' }}>
-      <List>
+    <Box style={{ padding: '2rem' }}>
+      <Grid container spacing={3}>
         {todos.map((todo, index) => (
-          <TodoItem
-            key={index}
-            todo={todo}
-            index={index}
-            deleteTodo={deleteTodo}
-            updateTodo={updateTodo}
-          />
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <TodoItem
+              todo={todo}
+              index={index}
+              deleteTodo={deleteTodo}
+              updateTodo={updateTodo}
+            />
+          </Grid>
         ))}
-      </List>
+      </Grid>
     </Box>
   );
 };
