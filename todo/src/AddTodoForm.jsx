@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Button, Paper, TextField, Box } from "@mui/material";
+import { useState } from "react";
 
 const AddToDoForm = ({ addTodo }) => {
   const [title, setTitle] = useState("");
@@ -15,43 +14,32 @@ const AddToDoForm = ({ addTodo }) => {
   };
 
   return (
-    <Box style={{ marginBottom: "2rem" }}>
-      <Paper elevation={3} style={{ padding: "1rem", borderRadius: '8px' }}>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-          <TextField
-            fullWidth
-            variant="outlined"
+    <div className="p-8">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <div className="flex flex-col sm:flex-row sm:space-x-4">
+          <input
+            type="text"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            style={{ marginBottom: '1rem' }}
+            className="w-full sm:w-1/2 p-3 rounded-md border border-orange-100 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 sm:mb-0"
           />
-          <TextField
-            fullWidth
-            variant="outlined"
+          <input
+            type="text"
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            style={{ marginBottom: '1rem' }}
+            className="w-full sm:w-1/2 p-3 rounded-md border border-orange-100 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 sm:mb-0"
           />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            style={{
-              padding: '10px 0',
-              fontWeight: 'bold',
-              textTransform: 'none',
-              borderRadius: '8px',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            Add Task
-          </Button>
-        </form>
-      </Paper>
-    </Box>
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-[#e98901] text-white p-3 rounded-md hover:bg-[#FF990A] font-semibold shadow-md"
+        >
+          Add Task
+        </button>
+      </form>
+    </div>
   );
 };
 
