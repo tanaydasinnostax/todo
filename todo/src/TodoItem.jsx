@@ -1,7 +1,7 @@
-import { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
+import { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 
 const TodoItem = ({ todo, index, deleteTodo, updateTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -55,12 +55,12 @@ const TodoItem = ({ todo, index, deleteTodo, updateTodo }) => {
           <h3 className="font-bold text-lg text-[#E98901] mb-2 uppercase">{todo.title}</h3>
           <hr />
           <p
-            className={`mb-4 ${isExpanded ? "whitespace-normal" : "truncate"} `}
-            style={{ maxHeight: "6em" }}
+            className={`mb-4 ${isExpanded ? 'whitespace-normal' : 'truncate'} `}
+            style={{ maxHeight: '6em' }}
             onClick={toggleDescription}
           >
             {todo.description}
-            {!isExpanded && todo.description.length > 50 && "..."}
+            {!isExpanded && todo.description.length > 50 && '...'}
           </p>
           <div className="flex space-x-2">
             <button
